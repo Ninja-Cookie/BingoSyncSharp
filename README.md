@@ -13,6 +13,7 @@ Firstly, simply add `BingoSyncSharp.dll` (from one of the [releases](https://git
 
 The internal namespace for `BingoSyncSharp` goes by `BingoSyncAPI` which has everything you need.
 
+
 ## Setting up:
 Simply add `using BingoSyncAPI;` to the top of the code you wish to use BingoSyncSharp in. You can then create a `new BingoSync();` and begin using it.
 
@@ -28,14 +29,18 @@ private readonly BingoSync bingoSync = new BingoSync();
 // ...
 ```
 
+
 ## Connecting to a room:
 Connecting to a room is simple! Take your BingoSync field (in this example; `bingoSync`) and do: `bingoSync.JoinRoom(...RoomInfo...);` with your existing or new `RoomInfo` class from `BingoSyncAPI.BingoSyncTypes`, within an asynchronous method if you wish to wait for a response on if the connection was successful or not.
 
 Example:
 ``` C#
+using BingoSyncAPI;
 using static BingoSyncAPI.BingoSyncTypes;
 
 // ...
+
+private readonly BingoSync bingoSync = new BingoSync();
 
 public async void JoinBingoSyncRoom()
 {
@@ -59,4 +64,46 @@ public async void JoinBingoSyncRoom()
 }
 
 // ...
+```
+
+(Idealy you would pass in the `RoomInfo` with the function, but for the sake of this example to show what to do, we just create the RoomInfo within the function)
+
+
+## Disconnecting from the room:
+Simply call `bingoSync.Disconnect()`, and if the connection status of this is Connected, it will handle the disconnection for you, leaving the room and closing sockets.
+
+
+## Listening to activity in the room:
+A `BingoSync` instance comes with the event `OnMessageReceived` which you can listen to. Just create a function accepting the type `SocketMessage` from `BingoSyncAPI.BingoSyncTypes`, then add your function to `OnMessageReceived`.
+
+Example:
+``` C#
+public void Init()
+{
+  bingoSync.OnMessageReceived += OnRoomEvent;
+}
+
+private void OnRoomEvent(SocketMessage message)
+{
+
+  // Example of then using this information ...
+
+  int changedSquareOnBoard = 0;
+  string chatMessage = string.Empty;
+
+  switch (message.type) // connection, goal, revealed, color, chat, new-card
+  {
+    case "goal":
+      if (int.TryParse(message.square.slot.Replace("slot", ""), out int result))
+        changedSquareOnBoard = result;
+    break;
+
+    case "chat":
+      chatMessage = message.text;
+    break;
+  }
+
+  // ...
+
+}
 ```
