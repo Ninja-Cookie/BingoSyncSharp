@@ -7,14 +7,14 @@ A simple C# <a href="https://bingosync.com/">BingoSync</a> API interactor, for e
 
 #
 
-<br/>
-
 <h3><b><p align="center">Note:</p></b></h3>
 <p align="center">
 <b>I have no association with <a href="https://bingosync.com/">BingoSync</a> or its creation in any way. This project is not to be mistaken with having any official involvement with <a href="https://github.com/kbuzsaki/bingosync">BingoSync Development</a>, this is a fully separated and unrelated project to the development of <a href="https://bingosync.com/">BingoSync</a>.</b>
 </p>
 
-<br/><br/>
+#
+
+<br/>
 
 ## About the creation of BingoSyncSharp
 
