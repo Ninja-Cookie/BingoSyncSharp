@@ -195,3 +195,22 @@ Example:
     );
   }
 ```
+
+Realistically, you're likely not using "Custom", and the JSON part won't be used, and if you are, you'd pull it in from a file or URL of some kind, and the game IDs are going to be for a specific game so you don't need to create new CardIDs each time. For the average user, it will probably look more like this:
+``` C#
+readonly CardIDs cardIDs = new CardIDs
+(
+  52,  // Hollow Knight ID
+  52,  // Hollow Knight Normal Variant ID (Default IDs match the game ID)
+);
+
+public async void GenerateNewCard()
+{
+  await CreateNewCard
+  (
+    true,    // If lockout mode or not.
+    true,    // If the card should be hidden and need revealing by players.
+    cardIDs  // The CardIDs for the game / matching variant desired.
+  );
+}
+```
