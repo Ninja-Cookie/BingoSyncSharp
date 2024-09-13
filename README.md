@@ -91,7 +91,7 @@ private void OnRoomEvent(SocketMessage message)
   int changedSquareOnBoard = 0;
   string chatMessage = string.Empty;
 
-  switch (message.type) // connection, goal, revealed, color, chat, new-card
+  switch (message.type) // expect: connection, goal, revealed, color, chat, new-card
   {
     case "goal":
       if (int.TryParse(message.square.slot.Replace("slot", ""), out int result))
@@ -111,3 +111,87 @@ private void OnRoomEvent(SocketMessage message)
 Note that you can get what information will generally be passed through into "message" of its type by following the "broadcast" socket in the network panel of a browsers inspector when in a room, or if that makes no sense, just debugging the "message" in your function to see what info exists for the "message.type" that comes in, just to get a general understanding of what you're looking for.
 
 For example, a `message.type` of "chat" won't have any info in `message.square`, which will be `null`, but will have info for `message.text` containing the chat message, and `message.player` about the player who sent the message in the chat, such as their name (`message.player.name`).
+
+
+## Send a message in chat:
+Sending a message in chat is easy! When connected to a room, just asynchronously call `bingoSync.SendChatMessage("your chat message");` with the desired message.
+
+
+## Mark/Unmark a slot on the board:
+You can mark/unmark a slot on the board with the `SelectSlot` function, passing in the slots ID, if to mark or unmark it, and what color its basing the decision from.
+
+Example:
+``` C#
+public async void SelectFirstSlot()
+{
+  await bingoSync.SelectSlot
+  (
+    1,                  // The first slot on the board, ranging from 1 to 25 on a 5x5 grid, starting top left ending bottom right.
+    true,               // The state of the color for this slot on the board (if to mark or unmark it). Defaults to `true` if no input is given to the parameter.
+    PlayerColors.Red    // The color trying to be marked/unmarked from this slot. Defaults to the currently set color of the player if `null` / no input is given to the parameter.
+  );
+}
+```
+
+If you just want to mark something with your current player color, this can be simplified to:
+``` C#
+public async void SelectFirstSlot()
+{
+  await bingoSync.SelectSlot(1);
+}
+```
+
+*But how do I know what slot should be marked/unmarked?*
+
+You can use the function `GetBoardSlots();` to get an array of `SlotInfo` containing information about each slot!
+
+Example:
+``` C#
+using System.Linq;
+
+// ...
+
+public async void SelectSlotWithName(string slotName)
+{
+  // Finds the slot that matches the given name.
+  SlotInfo slot = await bingoSync.GetBoardSlots().FirstOrDefault(x => x.Info == slotName);
+
+  // If a slot was found with this name, try to select it.
+  if (slot != null)
+    await bingoSync.SelectSlot(slot.ID);
+}
+
+// ...
+
+```
+
+From here you can get more creative and do smarter ways to search slots for a given name, such as regex matching, or if you have very strict objectives, you can handle those more directly.
+
+
+## Set the player color:
+If you want to change the player color mid-game, you can simply call the `SetPlayerColor(...playerColor...)` function with the desired `BingoSyncTypes.PlayerColors`
+
+
+## Create a new board:
+If you want to generate a new board, you can use the `CreateNewCard(...)` function, passing in the Lockout type, if the card should be hidden, IDs for the game and associated variant, then optionally a specified seed and custom JSON.
+
+Example:
+``` C#
+  public async void GenerateNewCard()
+  {
+    CardIDs customAdvSRL = new CardIDs        
+    (
+      18,    // The game ID for "Custom (Advanced)"
+      187    // The variant ID for "SRL v5" within game ID group "18"
+    ),
+
+    await CreateNewCard
+    (
+      true,                  // If lockout mode or not.
+      true,                  // If the card should be hidden and need revealing by players.
+      customAdvSRL,          // The CardIDs for the game / matching variant desired.
+      452189,                // A custom seed for the board. Defaults to -1 if parameter is not filled, which will pick a random seed.
+      "[{"customJson":""}]"  // Custom JSON to use for the board. This is specific to the "Custom (Advanced)" game on BingoSync. Unless you know what you're doing, you probably don't want / need to use this, and can pick a specific game instead.
+    );
+  }
+```
