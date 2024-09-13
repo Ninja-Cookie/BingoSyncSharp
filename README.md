@@ -1,8 +1,20 @@
-# BingoSyncSharp
-A simple C# [BingoSync](https://bingosync.com/) API interactor, for easy interactions with [BingoSync](https://bingosync.com/) rooms.
+<h1><p align="center">BingoSyncSharp</p></h1>
+<br/>
+
+<p align="center">
+A simple C# <a href="https://bingosync.com/">BingoSync</a> API interactor, for easy interactions with <a href="https://bingosync.com/">BingoSync</a> rooms.
+</p>
 
 #
-* **Note: I have no association with [BingoSync](https://bingosync.com/) or its creation in any way. This project is not to be mistaken with having any official involvement with [BingoSync Development](https://github.com/kbuzsaki/bingosync), this is a fully separated and unrelated project to the development of [BingoSync](https://bingosync.com/).**
+
+<br/>
+
+<h3><b><p align="center">Note:</p></b></h3>
+<p align="center">
+<b>I have no association with <a href="https://bingosync.com/">BingoSync</a> or its creation in any way. This project is not to be mistaken with having any official involvement with <a href="https://github.com/kbuzsaki/bingosync">BingoSync Development</a>, this is a fully separated and unrelated project to the development of <a href="https://bingosync.com/">BingoSync</a>.</b>
+</p>
+
+<br/><br/>
 
 ## About the creation of BingoSyncSharp
 
