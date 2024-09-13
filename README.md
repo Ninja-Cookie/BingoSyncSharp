@@ -107,3 +107,7 @@ private void OnRoomEvent(SocketMessage message)
 
 }
 ```
+
+Note that you can get what information will generally be passed through into "message" of its type by following the "broadcast" socket in the network panel of a browsers inspector when in a room, or if that makes no sense, just debugging the "message" in your function to see what info exists for the "message.type" that comes in, just to get a general understanding of what you're looking for.
+
+For example, a `message.type` of "chat" won't have any info in `message.square`, which will be `null`, but will have info for `message.text` containing the chat message, and `message.player` about the player who sent the message in the chat, such as their name (`message.player.name`).
