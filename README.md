@@ -214,3 +214,15 @@ public async void GenerateNewCard()
   );
 }
 ```
+
+Note that you can get the game IDs by looking at [BingoSync](https://bingosync.com/)'s homepage with an inspector, search for the game in the HTML and you should find its associated `value`. Alternatively, you can use the `GetCardIDs(...)` function, to call the website to find them automatically based on the provided Game name and Variant name, but unless you somehow need to dynamically obtain these during runtime, this should only be used for debugging to get the IDs you need.
+
+#
+There are still some more functions you can find within BingoSyncSharp, but this hopefully should cover the most prominent use-cases.
+#
+
+
+# Using this code:
+I used the NuGet packages [Json.Net](https://www.nuget.org/packages/Json.Net/1.0.33) and [ILMerge](https://www.nuget.org/packages/ILMerge/3.0.41) to merge Json.Net into the single BingoSyncSharp DLL.
+
+I generally wanted to use as little packages and libraries as I could for this to make it as usable as possible for anyone. Everything other than Json.Net, which I ended up needing for cleanly interacting with web requests, should be default standard libraries that can be used anywhere, is my hope at least. As said at the start, I don't really know what I am doing, but I did my best. If you feel you can do it better, feel free.
