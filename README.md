@@ -1,7 +1,11 @@
 # BingoSyncSharp
 A simple C# [BingoSync](https://bingosync.com/) API interactor, for easy interactions with [BingoSync](https://bingosync.com/) rooms.
 
+#
+* **Note: I have no association with [BingoSync](https://bingosync.com/) or its creation in any way. This project is not to be mistaken with having any official involvement with [BingoSync Development](https://github.com/kbuzsaki/bingosync), this is a fully separated and unrelated project to the development of [BingoSync](https://bingosync.com/).**
+
 ## About the creation of BingoSyncSharp
+
 Firstly, a question to myself that must be answered clearly:
 - Q: **Am I the right person to make something like this?**
 - A: **No**. I only started learning C# 9 to 10 months ago (December of 2023) and did my best to even learn web interactions with C# only **3 weeks ago** (August of 2024). I am not the right person to make this, but needed a way to interact with [BingoSync](https://bingosync.com/) for a [plugin](https://github.com/Ninja-Cookie/TrueBingo) I was creating, and could not find an easy and simple way to interact with BingoSync using C# anywhere else, so I made one.
