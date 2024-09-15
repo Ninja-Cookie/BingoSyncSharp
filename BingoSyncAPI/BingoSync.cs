@@ -88,7 +88,7 @@ namespace BingoSyncAPI
 
         private void MessagePassthrough(string message)
         {
-            if (Status == ConnectionStatus.Connected)
+            if (Status != ConnectionStatus.Disconnected)
             {
                 if (message == "Socket Closed")
                 {
